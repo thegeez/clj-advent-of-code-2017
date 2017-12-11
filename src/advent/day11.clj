@@ -157,6 +157,42 @@
          (apply max))))
 
 (comment
-  (day11-2 (slurp (io/resource "day11.txt")))1560
+  (day11-2 (slurp (io/resource "day11.txt")))
   )
 
+
+;; alternate
+
+(defn day11-alt [str-in]
+  (let [moves (-> str-in
+                  (str/trim)
+                  (str/split #",")
+                  (->> (map keyword)))
+        idx-moves (mapv vector (range) moves)
+
+        shortest-paths (reductions
+                        (fn recur-reduce [acc [idx dir]]
+                          (let [[j replace-move] (some
+                                                  (fn [[j jm]]
+                                                    (when-let [replace-move (-> (get replacement-moves jm)
+                                                                                (get dir))]
+                                                      [j replace-move]))
+                                                  (reverse acc))]
+                            (if j
+                              (if (= replace-move :cancelled)
+                                (dissoc acc j)
+                                ;; this move might compact with an existing move
+                                (recur-reduce (dissoc acc j) [idx replace-move]))
+                              (assoc acc idx dir))))
+                        (conj {} (first idx-moves))
+                        (rest idx-moves))]
+    (->> shortest-paths
+         (map count)
+         ((fn [res]
+            {:part1 (last res)
+             :part2 (apply max res)})))))
+
+(comment
+  (day11-alt (slurp (io/resource "day11.txt")))
+
+  )
