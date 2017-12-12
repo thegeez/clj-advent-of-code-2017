@@ -7,6 +7,14 @@
                  [org.clojure/core.async "0.3.442"]
 
                  [net.cgrand/xforms "0.15.0"]
+
+                 [datascript "0.15.5"]
+
+                 [com.cerner/clara-rules "0.16.1"]
+
+                 [instaparse "1.4.8"]
+
+                 [criterium "0.4.4"]
                  ]
 
   :profiles {:dev {:dependencies [[org.clojure/test.check "0.9.0"]]}})
