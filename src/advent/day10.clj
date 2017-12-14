@@ -7,7 +7,7 @@
             [net.cgrand.xforms.rfs :as xrf]
             [net.cgrand.xforms.io :as xio]
             [net.thegeez.advent.spec-parsing :as sp]
-            [instaparse.core :as insta]))
+            [criterium.core :as cc]))
 
 
 (defn swap-indexes [start-idx length rope-count]
@@ -122,6 +122,9 @@
         knot-hash (to-hex dense-hash)]
     knot-hash))
 
+(defn knot-hash-hex [str-in]
+  (day10-2 str-in))
+
 
 
 (test/deftest tests2
@@ -137,5 +140,8 @@
   (let [in (-> (io/resource "day10.txt")
                slurp
                str/trim)]
-    (day10-2 in))
+    (cc/quick-bench (day10-2 in)))
   )
+
+
+
