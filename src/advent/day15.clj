@@ -1,4 +1,4 @@
-(ns advent.day14
+(ns advent.day15
   (:require [clojure.spec.alpha :as s]
             [clojure.test :as test]
             [clojure.string :as str]
